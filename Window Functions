@@ -7,7 +7,6 @@ The dataset contains information about customers, products, orders, and order it
 
 
 Question 1 : Display customers who have placed orders with an amount higher than the average order amount.
-https://console.cloud.google.com/bigquery?ws=!1m7!1m6!12m5!1m3!1stop-monitor-476514-e0!2sasia-south1!3s18de6dd1-9df0-4579-8c96-062f345abcad!2e1
 Approach 1 - 
 select *
 from flipkart.customers c
@@ -21,4 +20,50 @@ order by o.amount desc;
 Approach 2 using window functions
 
 Question 2 : Show details of orders whose amounts exceed the average order amount of their respective customers.
+
+Approach 1 using CTE-
+with cust_avg_stats as (
+select customer_id,
+          avg(amount)avg_amt
+  from `flipkart.orders`
+  group by customer_id
+  )
+
+select *
+from `flipkart.orders` o join cust_avg_stats ca
+  on o.customer_id = ca.customer_id
+join `flipkart.customers` c
+  on o.customer_id = c.customer_id
+ORDER BY o.amount DESC;
+
+Approach 2 using Window Function -
+
+with avg_stats as(select c.customer_id,c.first_name,c.last_name,o.amount,round(avg(o.amount) over(partition by c.customer_id),2)avg_amt
+
+from flipkart.orders o  
+join `flipkart.customers` c 
+  on o.customer_id = c.customer_id
+)
+select *
+from  avg_stats
+where amount > avg_amt order by customer_id
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
