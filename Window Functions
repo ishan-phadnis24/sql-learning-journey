@@ -7,7 +7,7 @@ The dataset contains information about customers, products, orders, and order it
 
 
 Question 1 : Display customers who have placed orders with an amount higher than the average order amount.
-
+https://console.cloud.google.com/bigquery?ws=!1m7!1m6!12m5!1m3!1stop-monitor-476514-e0!2sasia-south1!3s18de6dd1-9df0-4579-8c96-062f345abcad!2e1
 Approach 1 - 
 select *
 from flipkart.customers c
@@ -19,4 +19,6 @@ order by o.amount desc;
 
 
 Approach 2 using window functions
+
+Question 2 : Show details of orders whose amounts exceed the average order amount of their respective customers.
 
