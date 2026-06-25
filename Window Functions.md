@@ -58,3 +58,13 @@ Approach 2 -
 **3. ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING**
    
 <img width="2104" height="450" alt="image" src="https://github.com/user-attachments/assets/1b0881a2-45bf-4091-9b2b-8a478e205b5a" />
+
+**Question 7 :Calculate the cumulative sales amount where all transactions with the same sale amount should be treated together when
+computing the running total.**
+```sql
+SELECT order_id,
+amount,
+SUM(amount) OVER( ORDER BY amount RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW ) as running_sum
+FROM `flipkart.orders`;
+```
+<img width="1818" height="204" alt="image" src="https://github.com/user-attachments/assets/800c0e84-dd45-48c5-b2b3-45fe5f2e7f89" />
